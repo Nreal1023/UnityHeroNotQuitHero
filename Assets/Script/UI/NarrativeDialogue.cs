@@ -7,60 +7,60 @@ using UnityEngine.UI;
 
 public class NarrativeDialogue : MonoBehaviour
 {
-    public TMP_Text speakerNameText; // ´ëÈ­ »ó´ëÀÇ ÀÌ¸§À» Ç¥½ÃÇÒ TMP_Text
-    public TMP_Text dialogueText; // ´ëÈ­ ³»¿ëÀ» Ç¥½ÃÇÒ TMP_Text
-    public string[] speakerNames; // ´ëÈ­¿¡ Âü¿©ÇÏ´Â ´ëÈ­ »ó´ëµéÀÇ ÀÌ¸§ ¹è¿­
-    public Color[] speakerNameColors; // ´ëÈ­¿¡ Âü¿©ÇÏ´Â ´ëÈ­ »ó´ëµéÀÇ ÀÌ¸§ »ö»ó ¹è¿­
-    public string[] narrativeSentences; // ´ëÈ­ ¹®ÀåµéÀ» ´ãÀ» ¹è¿­
-    public float letterDelay = 0.1f; // ÇÑ ±ÛÀÚ¾¿ ³ªÅ¸³ª´Â µô·¹ÀÌ
-    public float startDelay = 2f; // ´ëÈ­ ½ÃÀÛ±îÁö ´ë±âÇÒ ½Ã°£
-    public float fadeDuration = 1f; // ´ëÈ­ ½ÃÀÛ°ú ÇÔ²² ÀÌ¹ÌÁöÀÇ Åõ¸íµµ¸¦ º¯°æÇÒ ½Ã°£
-    public AudioClip typingSound; // Å¸ÀÌÇÎ ¼Ò¸®
+    public TMP_Text speakerNameText; // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ TMP_Text
+    public TMP_Text dialogueText; // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ TMP_Text
+    public string[] speakerNames; // ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½è¿­
+    public Color[] speakerNameColors; // ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
+    public string[] narrativeSentences; // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
+    public float letterDelay = 0.1f; // ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¾ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public float startDelay = 2f; // ï¿½ï¿½È­ ï¿½ï¿½ï¿½Û±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    public float fadeDuration = 1f; // ï¿½ï¿½È­ ï¿½ï¿½ï¿½Û°ï¿½ ï¿½Ô²ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    public AudioClip typingSound; // Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
 
-    private int currentSentenceIndex = 0; // ÇöÀç ´ëÈ­ ¹®Àå ÀÎµ¦½º
-    private bool spacePressed = false; // ½ºÆäÀÌ½º ¹Ù°¡ ´­·È´ÂÁö ¿©ºÎ
-    private Image dialogueImage; // ÀÌ¹ÌÁö ÄÄÆ÷³ÍÆ®
-    private AudioSource audioSource; // ¿Àµð¿À ¼Ò½º ÄÄÆ÷³ÍÆ®
+    private int currentSentenceIndex = 0; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
+    private bool spacePressed = false; // ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private Image dialogueImage; // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    private AudioSource audioSource; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
-    [CanBeNull] public PlayerMovement playerMovementScript; // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓÀ» ´ã´çÇÏ´Â ½ºÅ©¸³Æ®
-    private bool dialogueInProgress = true; // ´ëÈ­ ÁøÇà Áß ¿©ºÎ
+    [CanBeNull] public PlayerMovement playerMovementScript; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®
+    private bool dialogueInProgress = true; // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>(); // ¿Àµð¿À ¼Ò½º ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
-        dialogueImage = GetComponent<Image>(); // ÀÌ¹ÌÁö ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
+        audioSource = GetComponent<AudioSource>(); // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        dialogueImage = GetComponent<Image>(); // ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-        // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓÀ» ´ã´çÇÏ´Â ½ºÅ©¸³Æ®¸¦ Ã£À½
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½
         playerMovementScript = FindObjectOfType<PlayerMovement>();
-        // ´ëÈ­ ½ÃÀÛ±îÁö ´ë±â
+        // ï¿½ï¿½È­ ï¿½ï¿½ï¿½Û±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         StartCoroutine(StartDialogueWithDelay());
     }
 
     IEnumerator StartDialogueWithDelay()
     {
-        dialogueImage.color = new Color(1f, 1f, 1f, 0f); // ÃÊ±â¿¡ ÀÌ¹ÌÁö¸¦ ¿ÏÀüÈ÷ Åõ¸íÇÏ°Ô ¼³Á¤
+        dialogueImage.color = new Color(1f, 1f, 1f, 0f); // ï¿½Ê±â¿¡ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        yield return new WaitForSeconds(startDelay); // ´ëÈ­ ½ÃÀÛ±îÁö ´ë±â
-        StartNarrativeDialogue(); // ´ëÈ­ ½ÃÀÛ
+        yield return new WaitForSeconds(startDelay); // ï¿½ï¿½È­ ï¿½ï¿½ï¿½Û±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+        StartNarrativeDialogue(); // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
     }
 
     void StartNarrativeDialogue()
     {
-        // ³ª·¹ÀÌ¼Ç ´ëÈ­ ½ÃÀÛ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
         StartCoroutine(ShowNarrativeDialogue());
     }
 
     IEnumerator ShowNarrativeDialogue()
     {
 
-        // ´ëÈ­ ÁøÇà ÁßÀÓÀ» ³ªÅ¸³»´Â º¯¼ö ¼³Á¤
+        // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         dialogueInProgress = true;
 
-        // ´ëÈ­ ³»¿ë ÃÊ±âÈ­
+        // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         dialogueText.text = "";
         speakerNameText.text = "";
 
-        // ¼­¼­È÷ ÀÌ¹ÌÁö¸¦ ºÒÅõ¸íÇÏ°Ô ¸¸µê
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
         float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
@@ -70,69 +70,69 @@ public class NarrativeDialogue : MonoBehaviour
             yield return null;
         }
 
-        // ´ëÈ­ ¹®Àåµé ¼ø¼­´ë·Î Ç¥½Ã
+        // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
         while (currentSentenceIndex < narrativeSentences.Length)
         {
             string sentence = narrativeSentences[currentSentenceIndex];
             string speakerName = speakerNames[currentSentenceIndex];
-            Color speakerColor = speakerNameColors[currentSentenceIndex]; // ÇØ´ç ¹®ÀåÀÇ ´ëÈ­ »ó´ëÀÇ ÀÌ¸§ »ö»ó
+            Color speakerColor = speakerNameColors[currentSentenceIndex]; // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-            // ´ëÈ­ »ó´ëÀÇ ÀÌ¸§°ú »ö»ó ¼³Á¤
+            // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             speakerNameText.text = speakerName;
             speakerNameText.color = speakerColor;
 
-            // ´ëÈ­ ¹®ÀåÀ» ÇÑ ±ÛÀÚ¾¿ Ç¥½Ã
+            // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¾ï¿½ Ç¥ï¿½ï¿½
             for (int i = 0; i < sentence.Length; i++)
             {
-                // ½ºÆäÀÌ½º ¹Ù°¡ ´­·ÈÀ» ¶§ ¸ðµç ÅØ½ºÆ®¸¦ ÇÑ ¹ø¿¡ Ç¥½Ã
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
                 if (spacePressed)
                 {
-                    dialogueText.text = sentence; // ¸ðµç ÅØ½ºÆ®¸¦ ÇÑ ¹ø¿¡ Ç¥½Ã
-                    yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space)); // ½ºÆäÀÌ½º ¹Ù ´©¸¦ ¶§±îÁö ´ë±â
-                    break; // ´ëÈ­ ¹®Àå Ç¥½Ã Á¾·á
+                    dialogueText.text = sentence; // ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
+                    yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space)); // ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+                    break; // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 }
 
                 dialogueText.text += sentence[i];
-                audioSource.PlayOneShot(typingSound); // Å¸ÀÌÇÎ ¼Ò¸® Àç»ý
+                audioSource.PlayOneShot(typingSound); // Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½
                 yield return new WaitForSeconds(letterDelay);
             }
 
-            // ´ëÈ­ ¹®ÀåÀÌ ³¡³µÀ» ¶§ ½ºÆäÀÌ½º ¹Ù¸¦ ´©¸£±â¸¦ ±â´Ù¸²
+            // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½â¸¦ ï¿½ï¿½Ù¸ï¿½
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-            spacePressed = false; // ½ºÆäÀÌ½º ¹Ù ´©¸§ »óÅÂ ÃÊ±âÈ­
+            spacePressed = false; // ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 
-            // ´ÙÀ½ ´ëÈ­ ¹®ÀåÀ¸·Î ÀÌµ¿
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
             currentSentenceIndex++;
 
-            // ´ëÈ­ ¹®Àå ÃÊ±âÈ­
+            // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
             dialogueText.text = "";
 
         }
 
-        // ´ëÈ­ Á¾·á
-        Debug.Log("´ëÈ­ Á¾·á");
+        // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
+        Debug.Log("ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½");
         dialogueInProgress = false;
-        // ´ëÈ­ ÆÐ³ÎÀÇ Åõ¸íµµ¸¦ 0À¸·Î ¼³Á¤
+        // ï¿½ï¿½È­ ï¿½Ð³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         dialogueImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
-        // ¸ðµç ÅØ½ºÆ® Ä­ ÃÊ±âÈ­
+        // ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ® Ä­ ï¿½Ê±ï¿½È­
         speakerNameText.text = "";
         dialogueText.text = "";
     }
 
     void Update()
     {
-        // ´ëÈ­ ÁøÇà ÁßÀÏ ¶§ ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ Á¦¾î ½ºÅ©¸³Æ®¸¦ ºñÈ°¼ºÈ­
+        // ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         if (dialogueInProgress)
         {
             playerMovementScript.enabled = false;
         }
         else
         {
-            // ´ëÈ­°¡ Á¾·áµÇ¸é ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ Á¦¾î ½ºÅ©¸³Æ®¸¦ ´Ù½Ã È°¼ºÈ­
+            // ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ù½ï¿½ È°ï¿½ï¿½È­
             playerMovementScript.enabled = true;
         }
 
-        // ½ºÆäÀÌ½º ¹Ù¸¦ ´©¸£¸é ½ºÆäÀÌ½º ¹Ù°¡ ´­·ÈÀ½À» ÀúÀå
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (Input.GetKeyDown(KeyCode.Space))
         {
             spacePressed = true;

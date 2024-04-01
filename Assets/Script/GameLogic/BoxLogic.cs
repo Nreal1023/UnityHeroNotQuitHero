@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BoxLogic : MonoBehaviour
 {
-    public GameObject inventoryPanel; // 상자 인벤토리 패널
+    public GameObject inventoryPanel;
+    public PlayerMovement playerMovementScript;
 
     private bool isPlayerNearby = false;
 
@@ -16,26 +17,28 @@ public class BoxLogic : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNearby = true;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNearby = false;
         }
     }
+
     private void ToggleInventoryPanel()
     {
         if (inventoryPanel != null)
         {
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+            playerMovementScript.SetActive(!inventoryPanel.activeSelf)l;
         }
     }
 }
