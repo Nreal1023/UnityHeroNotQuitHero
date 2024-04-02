@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class NPC_Dialog : MonoBehaviour
 {
-    // NarrativeDialogue 스크립트의 인스턴스
+    // NarrativeDialogue ???????? ??????
     public NarrativeDialogue narrativeDialogue;
 
-    // 대화 정보
+    // ??? ????
     public string[] customSpeakerNames;
     public Color[] customSpeakerNameColors;
     public string[] customNarrativeSentences;
@@ -15,10 +15,10 @@ public class NPC_Dialog : MonoBehaviour
 
     void Start()
     {
-        // NarrativeDialogue 스크립트의 인스턴스 가져오기
+        // NarrativeDialogue ???????? ?????? ????????
         narrativeDialogue = FindObjectOfType<NarrativeDialogue>();
 
-        // speakerNames, speakerNameColors, narrativeSentences, typingSound 할당
+        // speakerNames, speakerNameColors, narrativeSentences, typingSound ???
         narrativeDialogue.speakerNames = customSpeakerNames;
         narrativeDialogue.speakerNameColors = customSpeakerNameColors;
         narrativeDialogue.narrativeSentences = customNarrativeSentences;

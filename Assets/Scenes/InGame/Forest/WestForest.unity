@@ -3725,7 +3725,7 @@ TilemapCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512371762}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -8282,7 +8282,7 @@ GameObject:
   - component: {fileID: 1848070574}
   m_Layer: 0
   m_Name: BoxMap
-  m_TagString: Untagged
+  m_TagString: Box
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8471,8 +8471,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24ea65551b57d5a45ababfa347789c7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryPanel: {fileID: 1848070569}
-  playerMovementScript: {fileID: 873423583}
+  inventoryPanel: {fileID: 1928263019}
+  playerMovemScript: {fileID: 0}
 --- !u!1 &1928263019
 GameObject:
   m_ObjectHideFlags: 0

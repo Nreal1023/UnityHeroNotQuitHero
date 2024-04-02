@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoxLogic : MonoBehaviour
 {
     public GameObject inventoryPanel;
-    public PlayerMovement playerMovementScript;
+    public PlayerMovement playerMovemScript;
 
     private bool isPlayerNearby = false;
 
@@ -38,7 +38,6 @@ public class BoxLogic : MonoBehaviour
         if (inventoryPanel != null)
         {
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-            playerMovementScript.SetActive(!inventoryPanel.activeSelf)l;
         }
     }
 }

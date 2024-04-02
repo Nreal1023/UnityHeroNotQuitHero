@@ -851,6 +851,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2113075037}
   - component: {fileID: 2113075036}
+  - component: {fileID: 2113075038}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -885,6 +886,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2113075038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113075035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73af53b8d89affa48958e7cef70ccae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
 --- !u!1001 &4424026898738173662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -959,7 +973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2534780969887126081, guid: 885c3c1b90edf874bb5b85aa1239180a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -150.29999
+      value: -150.3
       objectReference: {fileID: 0}
     - target: {fileID: 2534780969887126081, guid: 885c3c1b90edf874bb5b85aa1239180a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -973,6 +987,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2824500577966928680, guid: 885c3c1b90edf874bb5b85aa1239180a, type: 3}
+      propertyPath: playerMovementScript
+      value: 
+      objectReference: {fileID: 2113075038}
     - target: {fileID: 4898450291197161265, guid: 885c3c1b90edf874bb5b85aa1239180a, type: 3}
       propertyPath: m_Name
       value: Coner
