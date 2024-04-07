@@ -7,41 +7,41 @@ using UnityEngine.UI;
 
 public class NarrativeDialogue : MonoBehaviour
 {
-    public TMP_Text speakerNameText; // ��ȭ ����� �̸��� ǥ���� TMP_Text
-    public TMP_Text dialogueText; // ��ȭ ������ ǥ���� TMP_Text
-    public string[] speakerNames; // ��ȭ�� �����ϴ� ��ȭ ������ �̸� �迭
-    public Color[] speakerNameColors; // ��ȭ�� �����ϴ� ��ȭ ������ �̸� ���� �迭
-    public string[] narrativeSentences; // ��ȭ ������� ���� �迭
-    public float letterDelay = 0.1f; // �� ���ھ� ��Ÿ���� ������
-    public float startDelay = 2f; // ��ȭ ���۱��� ����� �ð�
-    public float fadeDuration = 1f; // ��ȭ ���۰� �Բ� �̹����� �������� ������ �ð�
-    public AudioClip typingSound; // Ÿ���� �Ҹ�
+    public TMP_Text speakerNameText;
+    public TMP_Text dialogueText;
+    public string[] speakerNames; 
+    public Color[] speakerNameColors; 
+    public string[] narrativeSentences; 
+    public float letterDelay = 0.1f; 
+    public float startDelay = 2f; 
+    public float fadeDuration = 1f; 
+    public AudioClip typingSound;
 
-    private int currentSentenceIndex = 0; // ���� ��ȭ ���� �ε���
-    private bool spacePressed = false; // �����̽� �ٰ� ���ȴ��� ����
-    private Image dialogueImage; // �̹��� ������Ʈ
-    private AudioSource audioSource; // ����� �ҽ� ������Ʈ
+    private int currentSentenceIndex = 0; 
+    private bool spacePressed = false; 
+    private Image dialogueImage;
+    private AudioSource audioSource; 
 
-    [CanBeNull] public PlayerMovement playerMovementScript; // �÷��̾� �������� ����ϴ� ��ũ��Ʈ
-    private bool dialogueInProgress = true; // ��ȭ ���� �� ����
+    [CanBeNull] public PlayerMovement playerMovementScript;
+    private bool dialogueInProgress = true;
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>(); // ����� �ҽ� ������Ʈ ��������
-        dialogueImage = GetComponent<Image>(); // �̹��� ������Ʈ ��������
+        audioSource = GetComponent<AudioSource>();
+        dialogueImage = GetComponent<Image>();
 
-        // �÷��̾� �������� ����ϴ� ��ũ��Ʈ�� ã��
+
         playerMovementScript = FindObjectOfType<PlayerMovement>();
-        // ��ȭ ���۱��� ���
+
         StartCoroutine(StartDialogueWithDelay());
     }
 
     IEnumerator StartDialogueWithDelay()
     {
-        dialogueImage.color = new Color(1f, 1f, 1f, 0f); // �ʱ⿡ �̹����� ������ �����ϰ� ����
+        dialogueImage.color = new Color(1f, 1f, 1f, 0f); 
 
-        yield return new WaitForSeconds(startDelay); // ��ȭ ���۱��� ���
-        StartNarrativeDialogue(); // ��ȭ ����
+        yield return new WaitForSeconds(startDelay);
+        StartNarrativeDialogue();
     }
 
     void StartNarrativeDialogue()
@@ -121,18 +121,15 @@ public class NarrativeDialogue : MonoBehaviour
 
     void Update()
     {
-        // ��ȭ ���� ���� �� �÷��̾� ������ ���� ��ũ��Ʈ�� ��Ȱ��ȭ
         if (dialogueInProgress)
         {
             playerMovementScript.enabled = false;
         }
         else
         {
-            // ��ȭ�� ����Ǹ� �÷��̾� ������ ���� ��ũ��Ʈ�� �ٽ� Ȱ��ȭ
             playerMovementScript.enabled = true;
         }
 
-        // �����̽� �ٸ� ������ �����̽� �ٰ� �������� ����
         if (Input.GetKeyDown(KeyCode.Space))
         {
             spacePressed = true;

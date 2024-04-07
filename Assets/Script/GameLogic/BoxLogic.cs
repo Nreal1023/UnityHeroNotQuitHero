@@ -5,15 +5,28 @@ using UnityEngine;
 public class BoxLogic : MonoBehaviour
 {
     public GameObject inventoryPanel;
+    public GameObject lamp;
     public PlayerMovement playerMovemScript;
 
     private bool isPlayerNearby = false;
+    private bool lampBlinking = false;
 
     private void Update()
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
         {
             ToggleInventoryPanel();
+            if (!lampBlinking)
+            {
+                lampBlinking = true;
+                StartCoroutine(BlinkLamp());
+
+                // 플레이어 스크립트 비활성화
+                if (playerMovemScript != null)
+                {
+                    playerMovemScript.enabled = false;
+                }
+            }
         }
     }
 
@@ -30,6 +43,18 @@ public class BoxLogic : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNearby = false;
+            if (lampBlinking)
+            {
+                StopCoroutine(BlinkLamp());
+                lampBlinking = false;
+                lamp.SetActive(false);
+
+                // 플레이어 스크립트 다시 활성화
+                if (playerMovemScript != null)
+                {
+                    playerMovemScript.enabled = true;
+                }
+            }
         }
     }
 
@@ -38,6 +63,17 @@ public class BoxLogic : MonoBehaviour
         if (inventoryPanel != null)
         {
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+        }
+    }
+
+    private IEnumerator BlinkLamp()
+    {
+        while (lampBlinking)
+        {
+            lamp.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            lamp.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }
