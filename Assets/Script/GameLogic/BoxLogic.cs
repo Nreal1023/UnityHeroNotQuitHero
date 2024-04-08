@@ -6,7 +6,6 @@ public class BoxLogic : MonoBehaviour
 {
     public GameObject inventoryPanel;
     public GameObject lamp;
-    public PlayerMovement playerMovemScript;
 
     private bool isPlayerNearby = false;
     private bool lampBlinking = false;
@@ -18,14 +17,7 @@ public class BoxLogic : MonoBehaviour
             ToggleInventoryPanel();
             if (!lampBlinking)
             {
-                lampBlinking = true;
-                StartCoroutine(BlinkLamp());
-
-                // 플레이어 스크립트 비활성화
-                if (playerMovemScript != null)
-                {
-                    playerMovemScript.enabled = false;
-                }
+                StartBlinking();
             }
         }
     }
@@ -35,6 +27,7 @@ public class BoxLogic : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNearby = true;
+            StartBlinking();
         }
     }
 
@@ -43,18 +36,7 @@ public class BoxLogic : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNearby = false;
-            if (lampBlinking)
-            {
-                StopCoroutine(BlinkLamp());
-                lampBlinking = false;
-                lamp.SetActive(false);
-
-                // 플레이어 스크립트 다시 활성화
-                if (playerMovemScript != null)
-                {
-                    playerMovemScript.enabled = true;
-                }
-            }
+            StopBlinking();
         }
     }
 
@@ -64,6 +46,19 @@ public class BoxLogic : MonoBehaviour
         {
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
         }
+    }
+
+    private void StartBlinking()
+    {
+        lampBlinking = true;
+        StartCoroutine(BlinkLamp());
+    }
+
+    private void StopBlinking()
+    {
+        lampBlinking = false;
+        StopCoroutine(BlinkLamp());
+        lamp.SetActive(false);
     }
 
     private IEnumerator BlinkLamp()
