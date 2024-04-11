@@ -25,12 +25,12 @@ public class NarrativeDialogue : MonoBehaviour
     [CanBeNull] public PlayerMovement playerMovementScript;
     private bool dialogueInProgress = true;
 
+    public GameObject questPanel;
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         dialogueImage = GetComponent<Image>();
-
-
         playerMovementScript = FindObjectOfType<PlayerMovement>();
 
         StartCoroutine(StartDialogueWithDelay());
@@ -46,21 +46,16 @@ public class NarrativeDialogue : MonoBehaviour
 
     void StartNarrativeDialogue()
     {
-        // �����̼� ��ȭ ����
         StartCoroutine(ShowNarrativeDialogue());
     }
 
     IEnumerator ShowNarrativeDialogue()
     {
-
-        // ��ȭ ���� ������ ��Ÿ���� ���� ����
         dialogueInProgress = true;
 
-        // ��ȭ ���� �ʱ�ȭ
         dialogueText.text = "";
         speakerNameText.text = "";
 
-        // ������ �̹����� �������ϰ� ����
         float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
@@ -70,51 +65,46 @@ public class NarrativeDialogue : MonoBehaviour
             yield return null;
         }
 
-        // ��ȭ ����� ������� ǥ��
         while (currentSentenceIndex < narrativeSentences.Length)
         {
             string sentence = narrativeSentences[currentSentenceIndex];
             string speakerName = speakerNames[currentSentenceIndex];
-            Color speakerColor = speakerNameColors[currentSentenceIndex]; // �ش� ������ ��ȭ ����� �̸� ����
+            Color speakerColor = speakerNameColors[currentSentenceIndex];
 
-            // ��ȭ ����� �̸��� ���� ����
             speakerNameText.text = speakerName;
             speakerNameText.color = speakerColor;
 
-            // ��ȭ ������ �� ���ھ� ǥ��
             for (int i = 0; i < sentence.Length; i++)
             {
-                // �����̽� �ٰ� ������ �� ��� �ؽ�Ʈ�� �� ���� ǥ��
                 if (spacePressed)
                 {
-                    dialogueText.text = sentence; // ��� �ؽ�Ʈ�� �� ���� ǥ��
-                    yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space)); // �����̽� �� ���� ������ ���
-                    break; // ��ȭ ���� ǥ�� ����
+                    dialogueText.text = sentence;
+                    yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+                    break;
                 }
 
                 dialogueText.text += sentence[i];
-                audioSource.PlayOneShot(typingSound); // Ÿ���� �Ҹ� ���
+                audioSource.PlayOneShot(typingSound);
                 yield return new WaitForSeconds(letterDelay);
             }
 
-            // ��ȭ ������ ������ �� �����̽� �ٸ� �����⸦ ��ٸ�
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-            spacePressed = false; // �����̽� �� ���� ���� �ʱ�ȭ
+            spacePressed = false;
 
-            // ���� ��ȭ �������� �̵�
             currentSentenceIndex++;
-
-            // ��ȭ ���� �ʱ�ȭ
             dialogueText.text = "";
-
         }
 
-        // ��ȭ ����
-        Debug.Log("��ȭ ����");
+        Debug.Log("대화 종료");
         dialogueInProgress = false;
-        // ��ȭ �г��� �������� 0���� ����
+
+        // 퀘스트 패널이 지정되어 있고, 해당 패널이 null이 아닐 때에만 활성화
+        if (questPanel != null)
+        {
+            questPanel.SetActive(true);
+        }
+
         dialogueImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
-        // ��� �ؽ�Ʈ ĭ �ʱ�ȭ
         speakerNameText.text = "";
         dialogueText.text = "";
     }

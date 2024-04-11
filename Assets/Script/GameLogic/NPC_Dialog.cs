@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class NPC_Dialog : MonoBehaviour
 {
-    // NarrativeDialogue ???????? ??????
+    // NarrativeDialogue 스크립트에 대한 참조
     public NarrativeDialogue narrativeDialogue;
 
-    // ??? ????
+    // 사용자 정의 변수
     public string[] customSpeakerNames;
     public Color[] customSpeakerNameColors;
     public string[] customNarrativeSentences;
     public AudioClip customTypingSound;
+    public GameObject customQuestPanel; // 새로운 questPanel 변수
 
     void Start()
     {
-        // NarrativeDialogue ???????? ?????? ????????
+        // NarrativeDialogue 스크립트의 인스턴스를 찾음
         narrativeDialogue = FindObjectOfType<NarrativeDialogue>();
 
-        // speakerNames, speakerNameColors, narrativeSentences, typingSound ???
+        // speakerNames, speakerNameColors, narrativeSentences, typingSound 변수에 사용자 정의 값을 할당
         narrativeDialogue.speakerNames = customSpeakerNames;
         narrativeDialogue.speakerNameColors = customSpeakerNameColors;
         narrativeDialogue.narrativeSentences = customNarrativeSentences;
         narrativeDialogue.typingSound = customTypingSound;
+
+        // questPanel 변수에 사용자 정의 값 할당
+        narrativeDialogue.questPanel = customQuestPanel;
     }
 }
