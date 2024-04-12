@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
@@ -8,6 +9,8 @@ using UnityEngine.UI;
 public class NarrativeDialogue : MonoBehaviour
 {
     public TMP_Text speakerNameText;
+    public TMP_Text questTMP;
+    public String questDescription;
     public TMP_Text dialogueText;
     public string[] speakerNames; 
     public Color[] speakerNameColors; 
@@ -17,6 +20,7 @@ public class NarrativeDialogue : MonoBehaviour
     public float fadeDuration = 1f; 
     public AudioClip typingSound;
 
+    private String _questDescription;
     private int currentSentenceIndex = 0; 
     private bool spacePressed = false; 
     private Image dialogueImage;
@@ -102,6 +106,7 @@ public class NarrativeDialogue : MonoBehaviour
         if (questPanel != null)
         {
             questPanel.SetActive(true);
+            questTMP.text = questDescription;
         }
 
         dialogueImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);

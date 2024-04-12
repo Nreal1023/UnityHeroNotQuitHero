@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class NPC_Dialog : MonoBehaviour
 {
@@ -12,6 +15,8 @@ public class NPC_Dialog : MonoBehaviour
     public Color[] customSpeakerNameColors;
     public string[] customNarrativeSentences;
     public AudioClip customTypingSound;
+    public TMP_Text questTMPText;
+    public String customQuestDescription;
     public GameObject customQuestPanel; // 새로운 questPanel 변수
 
     void Start()
@@ -24,6 +29,8 @@ public class NPC_Dialog : MonoBehaviour
         narrativeDialogue.speakerNameColors = customSpeakerNameColors;
         narrativeDialogue.narrativeSentences = customNarrativeSentences;
         narrativeDialogue.typingSound = customTypingSound;
+        narrativeDialogue.questTMP = questTMPText;
+        narrativeDialogue.questDescription = customQuestDescription;
 
         // questPanel 변수에 사용자 정의 값 할당
         narrativeDialogue.questPanel = customQuestPanel;
