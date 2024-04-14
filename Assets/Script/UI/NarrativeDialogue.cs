@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class NarrativeDialogue : MonoBehaviour
 {
@@ -51,6 +52,14 @@ public class NarrativeDialogue : MonoBehaviour
     void StartNarrativeDialogue()
     {
         StartCoroutine(ShowNarrativeDialogue());
+
+        if (questPanel != null)
+        {
+            questPanel.SetActive(true);
+
+            questPanel.transform.DOMoveY(0f, 1f).SetEase(Ease.OutBounce);
+            questTMP.text = questDescription;
+        }
     }
 
     IEnumerator ShowNarrativeDialogue()

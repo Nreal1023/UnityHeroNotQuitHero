@@ -17,14 +17,13 @@ public class NPC_Dialog : MonoBehaviour
     public AudioClip customTypingSound;
     public TMP_Text questTMPText;
     public String customQuestDescription;
-    public GameObject customQuestPanel; // 새로운 questPanel 변수
+    public GameObject customQuestPanel;
 
     void Start()
     {
-        // NarrativeDialogue 스크립트의 인스턴스를 찾음
+
         narrativeDialogue = FindObjectOfType<NarrativeDialogue>();
 
-        // speakerNames, speakerNameColors, narrativeSentences, typingSound 변수에 사용자 정의 값을 할당
         narrativeDialogue.speakerNames = customSpeakerNames;
         narrativeDialogue.speakerNameColors = customSpeakerNameColors;
         narrativeDialogue.narrativeSentences = customNarrativeSentences;
@@ -32,7 +31,6 @@ public class NPC_Dialog : MonoBehaviour
         narrativeDialogue.questTMP = questTMPText;
         narrativeDialogue.questDescription = customQuestDescription;
 
-        // questPanel 변수에 사용자 정의 값 할당
         narrativeDialogue.questPanel = customQuestPanel;
     }
 }
