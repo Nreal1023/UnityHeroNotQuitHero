@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class QuestList : MonoBehaviour
 {
-    public List<string> acceptedQuests = new List<string>(); // ÇÃ·¹ÀÌ¾î°¡ ¼ö¶ôÇÑ Äù½ºÆ® ¸ñ·Ï
+    public List<string> acceptedQuests = new List<string>();
+    public List<string> laterQuests = new List<string>();
 
-    // ÇÃ·¹ÀÌ¾î°¡ »õ·Î¿î Äù½ºÆ®¸¦ ¼ö¶ôÇÏ´Â ¸Ş¼­µå
     public void AcceptQuest(string questName)
     {
         acceptedQuests.Add(questName);
-        Debug.Log("ÇÃ·¹ÀÌ¾î°¡ Äù½ºÆ®¸¦ ¼ö¶ôÇß½À´Ï´Ù: " + questName);
-        // ¿©±â¼­ ÇÃ·¹ÀÌ¾îÀÇ Äù½ºÆ® ¸ñ·Ï UI¸¦ ¾÷µ¥ÀÌÆ®ÇÒ ¼ö ÀÖ½À´Ï´Ù.
+        Debug.Log("í€˜ìŠ¤íŠ¸ê°€ ìˆ˜ë½ë¨: " + questName);
+        gameObject.SetActive(false);
+    }
+
+    public void AddToLaterQuests(string questName)
+    {
+        laterQuests.Add(questName);
+        Debug.Log("í€˜ìŠ¤íŠ¸ê°€ ë‚˜ì¤‘ì— í•˜ê¸° ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€ë¨: " + questName);
+        gameObject.SetActive(false);
     }
 }

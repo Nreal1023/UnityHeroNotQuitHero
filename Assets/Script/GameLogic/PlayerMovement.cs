@@ -1,13 +1,16 @@
+// PlayerMovement.cs
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f; // ÇÃ·¹ÀÌ¾î ÀÌµ¿ ¼Óµµ
+    public float moveSpeed = 5f;
 
     private Rigidbody2D rb;
-    private float tileSize = 16f; // Å¸ÀÏÀÇ Å©±â
+    private float tileSize = 16f;
+    private bool canMove = true;
 
     private void Start()
     {
@@ -16,36 +19,45 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // ¿òÁ÷ÀÓ ÀÔ·ÂÀ» ¹Ş½À´Ï´Ù.
-        float moveInputX = Input.GetAxisRaw("Horizontal");
-        float moveInputY = Input.GetAxisRaw("Vertical");
+        if (canMove) // í”Œë ˆì´ì–´ê°€ ì›€ì§ì¼ ìˆ˜ ìˆëŠ” ìƒíƒœì¸ ê²½ìš°ì—ë§Œ ì›€ì§ì„ ì²˜ë¦¬
+        {
+            float moveInputX = Input.GetAxisRaw("Horizontal");
+            float moveInputY = Input.GetAxisRaw("Vertical");
 
-        // ÀÔ·ÂÀÌ ¹ß»ıÇÏ¸é Å¸ÀÏ Å©±â¸¸Å­ ÀÌµ¿ÇÕ´Ï´Ù.
-        if (moveInputX != 0)
-        {
-            MoveHorizontal(moveInputX);
-        }
-        else if (moveInputY != 0)
-        {
-            MoveVertical(moveInputY);
+            if (moveInputX != 0)
+            {
+                MoveHorizontal(moveInputX);
+            }
+            else if (moveInputY != 0)
+            {
+                MoveVertical(moveInputY);
+            }
         }
     }
 
     private void MoveHorizontal(float direction)
     {
-        // ¿òÁ÷ÀÌ´Â ¹æÇâ¿¡ µû¶ó¼­ ¿òÁ÷ÀÏ ¾çÀ» ¼³Á¤ÇÕ´Ï´Ù.
         Vector2 movement = new Vector2(tileSize * direction, 0f) * moveSpeed * Time.deltaTime;
 
-        // Rigidbody¸¦ ÀÌ¿ëÇÏ¿© ÇÃ·¹ÀÌ¾î¸¦ ¿òÁ÷ÀÔ´Ï´Ù.
         rb.MovePosition(rb.position + movement);
     }
 
     private void MoveVertical(float direction)
     {
-        // ¿òÁ÷ÀÌ´Â ¹æÇâ¿¡ µû¶ó¼­ ¿òÁ÷ÀÏ ¾çÀ» ¼³Á¤ÇÕ´Ï´Ù.
         Vector2 movement = new Vector2(0f, tileSize * direction) * moveSpeed * Time.deltaTime;
 
-        // Rigidbody¸¦ ÀÌ¿ëÇÏ¿© ÇÃ·¹ÀÌ¾î¸¦ ¿òÁ÷ÀÔ´Ï´Ù.
         rb.MovePosition(rb.position + movement);
+    }
+    
+    public void RestrictMovement()
+    {
+        canMove = false;
+        Debug.Log("ì›€ì§ì„ ì œí•œ");
+    }
+    
+    public void ReleaseMovement()
+    {
+        canMove = true;
+        Debug.Log("ì›€ì§ì„ ì œí•œ í•´ì œ");
     }
 }

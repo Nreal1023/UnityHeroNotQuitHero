@@ -1,3 +1,5 @@
+// BoxLogic.cs
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,18 +8,37 @@ public class BoxLogic : MonoBehaviour
 {
     public GameObject inventoryPanel;
     public GameObject lamp;
+    public PlayerMovement playerMovementScript;
 
     private bool isPlayerNearby = false;
     private bool lampBlinking = false;
+    private bool inventoryOpen = false;
+
+    private void Start()
+    {
+        playerMovementScript = FindObjectOfType<PlayerMovement>();
+    }
 
     private void Update()
     {
         if (isPlayerNearby && Input.GetKeyDown(KeyCode.F))
         {
             ToggleInventoryPanel();
+            inventoryOpen = !inventoryOpen;
+
             if (!lampBlinking)
             {
                 StartBlinking();
+            }
+
+            // 인벤토리 창이 열릴 때 플레이어 움직임 제한
+            if (inventoryOpen)
+            {
+                playerMovementScript.RestrictMovement();
+            }
+            else
+            {
+                playerMovementScript.ReleaseMovement();
             }
         }
     }
@@ -37,6 +58,7 @@ public class BoxLogic : MonoBehaviour
         {
             isPlayerNearby = false;
             StopBlinking();
+            playerMovementScript.ReleaseMovement();
         }
     }
 

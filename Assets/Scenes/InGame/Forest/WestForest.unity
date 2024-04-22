@@ -559,6 +559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceptedQuests: []
+  laterQuests: []
 --- !u!1 &290729600
 GameObject:
   m_ObjectHideFlags: 0
@@ -2282,7 +2283,7 @@ PrefabInstance:
     - target: {fileID: 2824500577966928680, guid: 885c3c1b90edf874bb5b85aa1239180a, type: 3}
       propertyPath: questPanel
       value: 
-      objectReference: {fileID: 720140062}
+      objectReference: {fileID: 1989157673}
     - target: {fileID: 2824500577966928680, guid: 885c3c1b90edf874bb5b85aa1239180a, type: 3}
       propertyPath: startDelay
       value: 1
@@ -2291,6 +2292,10 @@ PrefabInstance:
       propertyPath: typingSound
       value: 
       objectReference: {fileID: 8300000, guid: 2f1e24111d8d24ac19bf14e236cf758c, type: 3}
+    - target: {fileID: 2824500577966928680, guid: 885c3c1b90edf874bb5b85aa1239180a, type: 3}
+      propertyPath: questDescription
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2824500577966928680, guid: 885c3c1b90edf874bb5b85aa1239180a, type: 3}
       propertyPath: playerMovementScript
       value: 
@@ -10235,6 +10240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 1928263019}
   lamp: {fileID: 1336003587}
+  playerMovementScript: {fileID: 0}
 --- !u!1 &1928263019
 GameObject:
   m_ObjectHideFlags: 0
@@ -10364,6 +10370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceptedQuests: []
+  laterQuests: []
 --- !u!224 &2005915419 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2534780969887126081, guid: 885c3c1b90edf874bb5b85aa1239180a, type: 3}

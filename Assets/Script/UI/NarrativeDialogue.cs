@@ -45,6 +45,11 @@ public class NarrativeDialogue : MonoBehaviour
     {
         dialogueImage.color = new Color(1f, 1f, 1f, 0f); 
 
+        if (questPanel != null)
+        {
+            questPanel.SetActive(false);
+        }
+
         yield return new WaitForSeconds(startDelay);
         StartNarrativeDialogue();
     }
@@ -52,76 +57,72 @@ public class NarrativeDialogue : MonoBehaviour
     void StartNarrativeDialogue()
     {
         StartCoroutine(ShowNarrativeDialogue());
-
-        if (questPanel != null)
-        {
-            questPanel.SetActive(true);
-
-            questPanel.transform.DOMoveY(0f, 1f).SetEase(Ease.OutBounce);
-            questTMP.text = questDescription;
-        }
     }
+
 
     IEnumerator ShowNarrativeDialogue()
+{
+    dialogueInProgress = true;
+
+    dialogueText.text = "";
+    speakerNameText.text = "";
+
+    float elapsedTime = 0f;
+    while (elapsedTime < fadeDuration)
     {
-        dialogueInProgress = true;
+        float alpha = Mathf.Lerp(0f, 1f, elapsedTime / fadeDuration);
+        dialogueImage.color = new Color32(29, 29, 29, (byte)(alpha * 255));
+        elapsedTime += Time.deltaTime;
+        yield return null;
+    }
 
-        dialogueText.text = "";
-        speakerNameText.text = "";
+    while (currentSentenceIndex < narrativeSentences.Length)
+    {
+        string sentence = narrativeSentences[currentSentenceIndex];
+        string speakerName = speakerNames[currentSentenceIndex];
+        Color speakerColor = speakerNameColors[currentSentenceIndex];
 
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeDuration)
+        speakerNameText.text = speakerName;
+        speakerNameText.color = speakerColor;
+
+        for (int i = 0; i < sentence.Length; i++)
         {
-            float alpha = Mathf.Lerp(0f, 1f, elapsedTime / fadeDuration);
-            dialogueImage.color = new Color32(29, 29, 29, (byte)(alpha * 255));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        while (currentSentenceIndex < narrativeSentences.Length)
-        {
-            string sentence = narrativeSentences[currentSentenceIndex];
-            string speakerName = speakerNames[currentSentenceIndex];
-            Color speakerColor = speakerNameColors[currentSentenceIndex];
-
-            speakerNameText.text = speakerName;
-            speakerNameText.color = speakerColor;
-
-            for (int i = 0; i < sentence.Length; i++)
+            if (spacePressed)
             {
-                if (spacePressed)
-                {
-                    dialogueText.text = sentence;
-                    yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-                    break;
-                }
-
-                dialogueText.text += sentence[i];
-                audioSource.PlayOneShot(typingSound);
-                yield return new WaitForSeconds(letterDelay);
+                dialogueText.text = sentence;
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+                break;
             }
 
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-            spacePressed = false;
-
-            currentSentenceIndex++;
-            dialogueText.text = "";
+            dialogueText.text += sentence[i];
+            audioSource.PlayOneShot(typingSound);
+            yield return new WaitForSeconds(letterDelay);
         }
 
-        Debug.Log("대화 종료");
-        dialogueInProgress = false;
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+        spacePressed = false;
 
-        // 퀘스트 패널이 지정되어 있고, 해당 패널이 null이 아닐 때에만 활성화
-        if (questPanel != null)
-        {
-            questPanel.SetActive(true);
-            questTMP.text = questDescription;
-        }
-
-        dialogueImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
-        speakerNameText.text = "";
+        currentSentenceIndex++;
         dialogueText.text = "";
     }
+    
+    Debug.Log("대화 종료");
+    dialogueInProgress = false;
+
+    if (questPanel != null)
+    {
+        questPanel.SetActive(true);
+        questTMP.text = questDescription;
+
+        questPanel.transform.DOMoveY(0f, 1f).SetEase(Ease.OutBounce);
+    }
+
+    dialogueImage.GetComponent<Image>().color = new Color(1f, 1f, 1f, 0f);
+    speakerNameText.text = "";
+    dialogueText.text = "";
+}
+
+
 
     void Update()
     {
